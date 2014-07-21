@@ -134,21 +134,10 @@ THREEx.DomEvents.prototype._getRelativeMouseXY	= function(domEvent){
 	//get the real position of an element relative to the page starting point (0, 0)
 	//credits go to brainjam on answering http://stackoverflow.com/questions/5755312/getting-mouse-position-relative-to-content-area-of-an-element
 	var elPosition	= { x : 0 , y : 0};
-	var tmpElement	= element;
-	//store padding
-	var style	= getComputedStyle(tmpElement, null);
-	elPosition.y += parseInt(style.getPropertyValue("padding-top"), 10);
-	elPosition.x += parseInt(style.getPropertyValue("padding-left"), 10);
-	//add positions
-	do {
-		elPosition.x	+= tmpElement.offsetLeft;
-		elPosition.y	+= tmpElement.offsetTop;
-		style		= getComputedStyle(tmpElement, null);
-
-		elPosition.x	+= parseInt(style.getPropertyValue("border-left-width"), 10);
-		elPosition.y	+= parseInt(style.getPropertyValue("border-top-width"), 10);
-	} while(tmpElement = tmpElement.offsetParent);
 	
+	elPosition.y = $(element).offset().top;
+ 	elPosition.x = $(element).offset().left;
+
 	var elDimension	= {
 		width	: (element === window) ? window.innerWidth	: element.offsetWidth,
 		height	: (element === window) ? window.innerHeight	: element.offsetHeight
